@@ -3,8 +3,22 @@ set(CMAKE_CUDA_STANDARD 20) # Ensure CUDA uses the same standard
 
 find_package(CUDAToolkit)
 
+Set (SOURCE_FILES
+    main.cu
+)
+
+Set (HELPER_FILES
+    ../../Helpers/DefaultIncludes.h
+    ../../Helpers/helper_cuda.h
+    ../../Helpers/helper_functions.h
+    ../../Helpers/helper_math.h
+    ../../Helpers/helper_string.h
+    ../../Helpers/helper_timer.h
+    ../../Helpers/driver_types.h
+)
+
 # Add the executable or target
-add_executable(Init main.cu)  # Replace "main.cu" with your CUDA source file
+add_executable(Init ${SOURCE_FILES} ${HELPER_FILES})
 
 # Link CUDA libraries if needed
 target_link_libraries(Init PRIVATE CUDA::cudart)  # cudart is the CUDA runtime library
