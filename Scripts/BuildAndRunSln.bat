@@ -1,33 +1,22 @@
 @echo off
-rem This batch script builds a CMake project.
-rem It creates a "build" directory, configures the project using CMake,
-rem runs CMake to generate the solution file, starts the solution,
-rem and then pauses execution.
-
-rem Turn off command echoing
-@echo off
-
-rem Display a message indicating that the project is being built
-echo Building the project...
-
-rem Move to root folder
-cd ../
-
-rem Create a "build" directory
-mkdir Build
-
-rem Change to the "build" directory
-cd Build
-
-rem Run CMake to configure the project
-rem cmake ..
-cmake -G "Visual Studio 17 2022" -A x64 -T host=x64 ..
-
-rem Display a message indicating that the generated solution is being run
-echo Running the generated solution...
-
-rem Start the generated solution file (assuming it's named Fusion.sln)
-start CUDA_Fusion.sln
-
-rem Pause execution to keep the console window open
+cd /d "%~dp0.."
+if exist Build\CMakeCache.txt (
+    cd Build
+    cmake --build . --config Debug
+) else (
+    if exist Build rmdir /s /q Build
+    mkdir Build
+    cd Build
+    cmake -G "Visual Studio 17 2022" -A x64 ..
+    cmake --build . --config Debug
+)
+if %errorlevel% equ 0 (
+    echo.
+    echo BUILD SUCCEEDED
+    echo Opening Visual Studio solution...
+    start CUDA_Fusion.sln
+) else (
+    echo.
+    echo BUILD FAILED
+)
 pause

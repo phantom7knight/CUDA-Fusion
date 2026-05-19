@@ -1,21 +1,19 @@
-cmake_minimum_required(VERSION 3.18 FATAL_ERROR)  # CMake 3.18+ recommended for CUDA support
+cmake_minimum_required(VERSION 3.18)
 project(CUDA_Fusion LANGUAGES CXX CUDA)
 
-# Enable CUDA
-find_package(CUDA REQUIRED)
+set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 
-# Set the CUDA architecture (Optional, can be automatic in modern CMake)
-set(CMAKE_CUDA_ARCHITECTURES 52 60 61 75 80)  # Change based on your target GPU
+set(CMAKE_CXX_STANDARD 20)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+set(CMAKE_CUDA_STANDARD 20)
+set(CMAKE_CUDA_STANDARD_REQUIRED ON)
 
-set(CMAKE_EXPORT_COMPILE_COMMANDS ON CACHE INTERNAL "")
+# Optional: pick one architecture (or a small set). "native" works on newer CMake/NVIDIA setups.
+# set(CMAKE_CUDA_ARCHITECTURES native)
+set(CMAKE_CUDA_ARCHITECTURES 75)
 
-# Specify the C++ Standard
-set(CMAKE_CXX_STANDARD 20)  # Or any other version like 17, 20
-set(CMAKE_CUDA_STANDARD 20) # Ensure CUDA uses the same standard
-
-# Specify output paths for all configurations (same for CUDA projects)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)    # For static libraries (.lib, .a)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)    # For shared libraries (.so, .dll)
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)    # For executables (.exe, .out)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/Bin)
 
 add_subdirectory(Applications)

@@ -32,5 +32,7 @@
 *.app
 
 # Custom
+*.pdb
 
 Build/
+Applications/Init/bin/

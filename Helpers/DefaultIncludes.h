@@ -10,3 +10,4 @@
 // CUDA runtime
 #include <cuda_runtime.h>
 #include <cuda_profiler_api.h>
+#include <device_launch_parameters.h>
